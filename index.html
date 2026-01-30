@@ -22,7 +22,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
@@ -32,7 +32,9 @@
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container">
             <div class="nav-wrapper">
-                <a href="#home" class="logo" aria-label="NovaRegis Home">NovaRegis</a>
+                <a href="#home" class="logo" aria-label="NovaRegis Home">
+                    <img src="logo.png" alt="NovaRegis Logo">
+                </a>
                 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                     <span></span>
                     <span></span>
@@ -53,10 +55,15 @@
     <!-- Hero Section -->
     <section id="home" class="hero" aria-label="Hero section">
         <div class="hero-background"></div>
+        <div class="section-bg-images" data-parallax="0.5">
+            <div class="section-bg-image bg-image-1" data-animation="float"></div>
+            <div class="section-bg-image bg-image-2" data-animation="rotate"></div>
+            <div class="section-bg-image bg-image-3" data-animation="drift"></div>
+        </div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="gradient-text">NovaRegis</span>
+                <h1 class="hero-logo">
+                    <span class="nova">Nova</span><span class="regis">Regis</span>
                 </h1>
                 <p class="hero-tagline">AI and Software Service Agency</p>
                 <p class="hero-description">Transforming ideas into intelligent solutions. We deliver cutting-edge AI and software services that drive innovation for top-tier startups.</p>
@@ -73,6 +80,11 @@
 
     <!-- Services Section -->
     <section id="services" class="services" aria-label="Services section">
+        <div class="section-bg-images" data-parallax="0.3">
+            <div class="section-bg-image bg-image-1" data-animation="float"></div>
+            <div class="section-bg-image bg-image-2" data-animation="scale"></div>
+            <div class="section-bg-image bg-image-3" data-animation="drift"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Our Services</h2>
@@ -149,6 +161,11 @@
 
     <!-- About Section -->
     <section id="about" class="about" aria-label="About section">
+        <div class="section-bg-images" data-parallax="0.4">
+            <div class="section-bg-image bg-image-1" data-animation="rotate"></div>
+            <div class="section-bg-image bg-image-2" data-animation="float"></div>
+            <div class="section-bg-image bg-image-3" data-animation="scale"></div>
+        </div>
         <div class="container">
             <div class="about-content">
                 <div class="about-text" data-aos="fade-right">

@@ -296,11 +296,90 @@
     }
 
     // ============================================
+    // Parallax Background Images with Performance Optimization
+    // ============================================
+
+    const parallaxContainers = document.querySelectorAll('.section-bg-images[data-parallax]');
+    let ticking = false;
+    const visibleContainers = new Set();
+
+    // Use Intersection Observer for performance
+    const parallaxObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                visibleContainers.add(entry.target);
+            } else {
+                visibleContainers.delete(entry.target);
+            }
+        });
+    }, {
+        rootMargin: '50px'
+    });
+
+    // Observe all parallax containers
+    parallaxContainers.forEach(container => {
+        parallaxObserver.observe(container);
+        // Enable GPU acceleration
+        const bgImages = container.querySelectorAll('.section-bg-image');
+        bgImages.forEach(img => {
+            img.style.willChange = 'transform';
+            img.style.backfaceVisibility = 'hidden';
+            img.style.perspective = '1000px';
+        });
+    });
+
+    function updateParallax() {
+        visibleContainers.forEach(container => {
+            const parallaxSpeed = parseFloat(container.getAttribute('data-parallax')) || 0.5;
+            const rect = container.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            // Only animate if container is in viewport
+            if (rect.bottom >= 0 && rect.top <= windowHeight) {
+                const scrollY = window.pageYOffset;
+                const containerTop = container.offsetTop;
+                const scrolled = scrollY - containerTop + windowHeight;
+                
+                const bgImages = container.querySelectorAll('.section-bg-image');
+                bgImages.forEach((img, index) => {
+                    // Different parallax speeds for depth effect
+                    const individualSpeed = parallaxSpeed * (0.5 + index * 0.3);
+                    const yOffset = scrolled * individualSpeed;
+                    // Use translate3d for GPU acceleration, preserve existing transforms from CSS animations
+                    img.style.transform = `translate3d(0, ${yOffset}px, 0)`;
+                });
+            }
+        });
+        ticking = false;
+    }
+
+    function requestParallaxTick() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+
+    // Throttle scroll events
+    let lastScrollTime = 0;
+    const scrollThrottle = 16; // ~60fps
+
+    window.addEventListener('scroll', () => {
+        const now = Date.now();
+        if (now - lastScrollTime >= scrollThrottle) {
+            requestParallaxTick();
+            lastScrollTime = now;
+        }
+    }, { passive: true });
+
+    updateParallax(); // Initial call
+
+    // ============================================
     // Console Welcome Message
     // ============================================
 
-    console.log('%cNovaRegis', 'font-size: 24px; font-weight: bold; color: #6366f1;');
-    console.log('%cAI and Software Service Agency', 'font-size: 14px; color: #06b6d4;');
-    console.log('%cInterested in working together? Visit our contact section!', 'font-size: 12px; color: #a1a1aa;');
+    console.log('%cNovaRegis', 'font-size: 24px; font-weight: bold; color: #0066ff;');
+    console.log('%cAI and Software Service Agency', 'font-size: 14px; color: #0066ff;');
+    console.log('%cInterested in working together? Visit our contact section!', 'font-size: 12px; color: #4a4a4a;');
 
 })();
