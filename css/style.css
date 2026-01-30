@@ -366,14 +366,16 @@ body {
 
 .btn-secondary {
     background: transparent;
-    color: var(--text-primary);
-    border: 2px solid var(--border-color);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
-    background: var(--bg-darker);
-    border-color: var(--primary-gradient-start);
-    color: var(--primary-gradient-start);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 102, 255, 0.8);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
 }
 
 /* ============================================
