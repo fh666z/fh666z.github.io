@@ -251,7 +251,7 @@
         const heroBackground = document.querySelector('.hero-background');
         
         if (heroBackground && scrolled < window.innerHeight) {
-            heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+            heroBackground.style.transform = `translateY(${scrolled * 2}px)`;
         }
     }
 
@@ -379,7 +379,7 @@
     // ============================================
 
     console.log('%cFrontierHub', 'font-size: 24px; font-weight: bold; color: #0066ff;');
-    console.log('%cAI and Software Service Agency', 'font-size: 14px; color: #0066ff;');
+    console.log('%cInnovating software solutions where the most advancing industries struggle', 'font-size: 14px; color: #0066ff;');
     console.log('%cInterested in working together? Visit our contact section!', 'font-size: 12px; color: #4a4a4a;');
 
 })();
