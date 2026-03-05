@@ -1,5 +1,5 @@
 // ============================================
-// Main JavaScript for NovaRegis Website
+// Main JavaScript for FrontierHub Website
 // ============================================
 
 (function() {
@@ -378,7 +378,7 @@
     // Console Welcome Message
     // ============================================
 
-    console.log('%cNovaRegis', 'font-size: 24px; font-weight: bold; color: #0066ff;');
+    console.log('%cFrontierHub', 'font-size: 24px; font-weight: bold; color: #0066ff;');
     console.log('%cAI and Software Service Agency', 'font-size: 14px; color: #0066ff;');
     console.log('%cInterested in working together? Visit our contact section!', 'font-size: 12px; color: #4a4a4a;');
 

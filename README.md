@@ -1,6 +1,6 @@
-# NovaRegis Website
+# FrontierHub Website
 
-A modern, bold tech-forward website for NovaRegis - AI and Software Service Agency. Built with vanilla HTML, CSS, and JavaScript, optimized for GitHub Pages hosting.
+A modern, bold tech-forward website for FrontierHub - AI and Software Service Agency. Built with vanilla HTML, CSS, and JavaScript, optimized for GitHub Pages hosting.
 
 ## Features
 
@@ -135,9 +135,9 @@ This project is open source and available for use.
 ## Support
 
 For questions or support, please contact:
-- Email: contact@novaregis.com
+- Email: contact@frontierhub.com
 - Website: [Your website URL]
 
 ---
 
-Built with ❤️ by NovaRegis
+Built with ❤️ by FrontierHub
