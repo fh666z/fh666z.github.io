@@ -621,7 +621,7 @@ section::before {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    aspect-ratio: 16/10;
+    aspect-ratio: 10/16;
     cursor: pointer;
     border: 1px solid var(--border-light);
 }
@@ -629,9 +629,11 @@ section::before {
 .portfolio-image {
     width: 100%;
     height: 100%;
-    background: var(--bg-light-watermark);
+    background-color: var(--bg-light-watermark);
+    background-size: cover;
+    background-position: center;
     position: relative;
-    transition: background var(--transition-base);
+    transition: all var(--transition-base);
 }
 
 .portfolio-card:hover .portfolio-image {
