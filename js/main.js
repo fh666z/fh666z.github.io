@@ -14,7 +14,6 @@
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-menu a');
 
-    // Sticky navbar on scroll
     function handleNavbarScroll() {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -25,14 +24,12 @@
 
     window.addEventListener('scroll', handleNavbarScroll);
 
-    // Mobile menu toggle
     if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             const isExpanded = navMenu.classList.contains('active');
             mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
-            
-            // Animate hamburger icon
+
             const spans = mobileMenuToggle.querySelectorAll('span');
             if (isExpanded) {
                 spans[0].style.transform = 'rotate(45deg) translateY(8px)';
@@ -46,7 +43,6 @@
         });
     }
 
-    // Close mobile menu when clicking on a link
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             navMenu.classList.remove('active');
@@ -58,7 +54,6 @@
         });
     });
 
-    // Smooth scroll for anchor links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -66,9 +61,9 @@
                 e.preventDefault();
                 const targetId = href.substring(1);
                 const targetElement = document.getElementById(targetId);
-                
+
                 if (targetElement) {
-                    const offsetTop = targetElement.offsetTop - 80; // Account for fixed navbar
+                    const offsetTop = targetElement.offsetTop - 80;
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
@@ -91,13 +86,10 @@
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('aos-animate');
-                // Optional: Unobserve after animation to improve performance
-                // observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe all elements with data-aos attribute
     document.querySelectorAll('[data-aos]').forEach(el => {
         observer.observe(el);
     });
@@ -107,9 +99,8 @@
     // ============================================
 
     function animateCounter(element, target, duration = 2000) {
-        const start = 0;
-        const increment = target / (duration / 16); // 60fps
-        let current = start;
+        const increment = target / (duration / 16);
+        let current = 0;
 
         const timer = setInterval(() => {
             current += increment;
@@ -144,18 +135,17 @@
     // ============================================
 
     const contactForm = document.querySelector('.contact-form');
-    
+
     if (contactForm) {
         const nameInput = document.getElementById('name');
         const emailInput = document.getElementById('email');
         const messageInput = document.getElementById('message');
         const formSuccess = document.querySelector('.form-success');
 
-        // Real-time validation
         function validateField(field, validator) {
             const errorMessage = field.parentElement.querySelector('.error-message');
             const isValid = validator(field.value);
-            
+
             if (field.value && !isValid) {
                 field.style.borderColor = '#ef4444';
                 errorMessage.textContent = getErrorMessage(field.name);
@@ -176,86 +166,38 @@
             return messages[fieldName] || 'Invalid input';
         }
 
-        // Validators
         const validators = {
             name: (value) => value.trim().length >= 2,
             email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
             message: (value) => value.trim().length >= 10
         };
 
-        // Add event listeners for real-time validation
         nameInput.addEventListener('blur', () => validateField(nameInput, validators.name));
         emailInput.addEventListener('blur', () => validateField(emailInput, validators.email));
         messageInput.addEventListener('blur', () => validateField(messageInput, validators.message));
 
-        // Form submission
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Validate all fields
             const isNameValid = validateField(nameInput, validators.name);
             const isEmailValid = validateField(emailInput, validators.email);
             const isMessageValid = validateField(messageInput, validators.message);
 
             if (isNameValid && isEmailValid && isMessageValid) {
-                // Simulate form submission (replace with actual form handling)
                 formSuccess.textContent = 'Thank you! Your message has been sent successfully.';
                 formSuccess.classList.add('show');
-                
-                // Reset form
                 contactForm.reset();
-                
-                // Hide success message after 5 seconds
+
                 setTimeout(() => {
                     formSuccess.classList.remove('show');
                 }, 5000);
-
-                // In a real implementation, you would send the data to a server:
-                // fetch('/api/contact', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify({
-                //         name: nameInput.value,
-                //         email: emailInput.value,
-                //         message: messageInput.value
-                //     })
-                // })
-                // .then(response => response.json())
-                // .then(data => {
-                //     formSuccess.textContent = 'Thank you! Your message has been sent.';
-                //     formSuccess.classList.add('show');
-                //     contactForm.reset();
-                // })
-                // .catch(error => {
-                //     formSuccess.textContent = 'Sorry, there was an error. Please try again.';
-                //     formSuccess.style.background = 'rgba(239, 68, 68, 0.2)';
-                //     formSuccess.style.borderColor = '#ef4444';
-                //     formSuccess.style.color = '#ef4444';
-                //     formSuccess.classList.add('show');
-                // });
             } else {
-                // Focus on first invalid field
                 if (!isNameValid) nameInput.focus();
                 else if (!isEmailValid) emailInput.focus();
                 else if (!isMessageValid) messageInput.focus();
             }
         });
     }
-
-    // ============================================
-    // Parallax Effect (Subtle)
-    // ============================================
-
-    function handleParallax() {
-        const scrolled = window.pageYOffset;
-        const heroBackground = document.querySelector('.hero-background');
-        
-        if (heroBackground && scrolled < window.innerHeight) {
-            heroBackground.style.transform = `translateY(${scrolled * 2}px)`;
-        }
-    }
-
-    window.addEventListener('scroll', handleParallax);
 
     // ============================================
     // Active Navigation Link Highlighting
@@ -281,13 +223,12 @@
     }
 
     window.addEventListener('scroll', updateActiveNavLink);
-    updateActiveNavLink(); // Initial call
+    updateActiveNavLink();
 
     // ============================================
-    // Performance Optimization: Lazy Loading
+    // Lazy Loading
     // ============================================
 
-    // Add loading="lazy" to images if any are added in the future
     if ('loading' in HTMLImageElement.prototype) {
         const images = document.querySelectorAll('img[loading="lazy"]');
         images.forEach(img => {
@@ -296,90 +237,10 @@
     }
 
     // ============================================
-    // Parallax Background Images with Performance Optimization
+    // Console Welcome
     // ============================================
 
-    const parallaxContainers = document.querySelectorAll('.section-bg-images[data-parallax]');
-    let ticking = false;
-    const visibleContainers = new Set();
-
-    // Use Intersection Observer for performance
-    const parallaxObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                visibleContainers.add(entry.target);
-            } else {
-                visibleContainers.delete(entry.target);
-            }
-        });
-    }, {
-        rootMargin: '50px'
-    });
-
-    // Observe all parallax containers
-    parallaxContainers.forEach(container => {
-        parallaxObserver.observe(container);
-        // Enable GPU acceleration
-        const bgImages = container.querySelectorAll('.section-bg-image');
-        bgImages.forEach(img => {
-            img.style.willChange = 'transform';
-            img.style.backfaceVisibility = 'hidden';
-            img.style.perspective = '1000px';
-        });
-    });
-
-    function updateParallax() {
-        visibleContainers.forEach(container => {
-            const parallaxSpeed = parseFloat(container.getAttribute('data-parallax')) || 0.5;
-            const rect = container.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            
-            // Only animate if container is in viewport
-            if (rect.bottom >= 0 && rect.top <= windowHeight) {
-                const scrollY = window.pageYOffset;
-                const containerTop = container.offsetTop;
-                const scrolled = scrollY - containerTop + windowHeight;
-                
-                const bgImages = container.querySelectorAll('.section-bg-image');
-                bgImages.forEach((img, index) => {
-                    // Different parallax speeds for depth effect
-                    const individualSpeed = parallaxSpeed * (0.5 + index * 0.3);
-                    const yOffset = scrolled * individualSpeed;
-                    // Use translate3d for GPU acceleration, preserve existing transforms from CSS animations
-                    img.style.transform = `translate3d(0, ${yOffset}px, 0)`;
-                });
-            }
-        });
-        ticking = false;
-    }
-
-    function requestParallaxTick() {
-        if (!ticking) {
-            window.requestAnimationFrame(updateParallax);
-            ticking = true;
-        }
-    }
-
-    // Throttle scroll events
-    let lastScrollTime = 0;
-    const scrollThrottle = 16; // ~60fps
-
-    window.addEventListener('scroll', () => {
-        const now = Date.now();
-        if (now - lastScrollTime >= scrollThrottle) {
-            requestParallaxTick();
-            lastScrollTime = now;
-        }
-    }, { passive: true });
-
-    updateParallax(); // Initial call
-
-    // ============================================
-    // Console Welcome Message
-    // ============================================
-
-    console.log('%cFrontierHub', 'font-size: 24px; font-weight: bold; color: #0066ff;');
-    console.log('%cInnovating software solutions where the most advancing industries struggle', 'font-size: 14px; color: #0066ff;');
-    console.log('%cInterested in working together? Visit our contact section!', 'font-size: 12px; color: #4a4a4a;');
+    console.log('%cFrontierHub', 'font-size: 24px; font-weight: 300; color: #2997FF; letter-spacing: 0.1em;');
+    console.log('%cFrontier Software Technologies', 'font-size: 12px; color: #86868B; letter-spacing: 0.2em;');
 
 })();
