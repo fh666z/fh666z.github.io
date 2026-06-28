@@ -176,28 +176,90 @@
         emailInput.addEventListener('blur', () => validateField(emailInput, validators.email));
         messageInput.addEventListener('blur', () => validateField(messageInput, validators.message));
 
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const isNameValid = validateField(nameInput, validators.name);
             const isEmailValid = validateField(emailInput, validators.email);
             const isMessageValid = validateField(messageInput, validators.message);
 
-            if (isNameValid && isEmailValid && isMessageValid) {
-                formSuccess.textContent = 'Thank you! Your message has been sent successfully.';
-                formSuccess.classList.add('show');
-                contactForm.reset();
-
-                setTimeout(() => {
-                    formSuccess.classList.remove('show');
-                }, 5000);
-            } else {
+            if (!isNameValid || !isEmailValid || !isMessageValid) {
                 if (!isNameValid) nameInput.focus();
                 else if (!isEmailValid) emailInput.focus();
                 else if (!isMessageValid) messageInput.focus();
+                return;
+            }
+
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/info@frontierhub.tech', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        name: nameInput.value,
+                        email: emailInput.value,
+                        message: messageInput.value,
+                        _subject: 'New message from FrontierHub website',
+                        _captcha: 'false',
+                        _template: 'table'
+                    })
+                });
+
+                if (response.ok) {
+                    formSuccess.textContent = 'Thank you! Your message has been sent successfully.';
+                    formSuccess.classList.add('show');
+                    contactForm.reset();
+                    setTimeout(() => formSuccess.classList.remove('show'), 5000);
+                } else {
+                    formSuccess.textContent = 'Something went wrong. Please try emailing us directly at info@frontierhub.tech.';
+                    formSuccess.classList.add('show');
+                    setTimeout(() => formSuccess.classList.remove('show'), 7000);
+                }
+            } catch {
+                formSuccess.textContent = 'Something went wrong. Please try emailing us directly at info@frontierhub.tech.';
+                formSuccess.classList.add('show');
+                setTimeout(() => formSuccess.classList.remove('show'), 7000);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
             }
         });
     }
+
+    // ============================================
+    // Hero Parallax
+    // ============================================
+
+    const heroSection = document.querySelector('.hero');
+    let parallaxTicking = false;
+
+    function handleHeroParallax() {
+        if (!heroSection) {
+            parallaxTicking = false;
+            return;
+        }
+
+        const scrolled = window.pageYOffset;
+        if (scrolled < window.innerHeight) {
+            heroSection.style.setProperty('--hero-parallax-y', `${scrolled * 0.35}px`);
+        }
+
+        parallaxTicking = false;
+    }
+
+    function requestHeroParallax() {
+        if (!parallaxTicking) {
+            window.requestAnimationFrame(handleHeroParallax);
+            parallaxTicking = true;
+        }
+    }
+
+    window.addEventListener('scroll', requestHeroParallax, { passive: true });
+    handleHeroParallax();
 
     // ============================================
     // Active Navigation Link Highlighting

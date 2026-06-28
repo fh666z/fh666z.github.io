@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20260628">
 </head>
 <body>
     <!-- Navigation -->
@@ -54,6 +54,14 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero" aria-label="Hero section">
+        <div class="hero-bg" aria-hidden="true">
+            <div class="hero-bg-gradient"></div>
+            <div class="hero-bg-orbs">
+                <div class="hero-orb hero-orb-1"></div>
+                <div class="hero-orb hero-orb-2"></div>
+                <div class="hero-orb hero-orb-3"></div>
+            </div>
+        </div>
         <div class="container">
             <div class="hero-content">
                 <p class="hero-label">Frontier Software Technologies</p>
@@ -275,7 +283,7 @@
                         </div>
                         <div>
                             <h4>Email</h4>
-                            <p>momchil.stasnchev@frontierhub.tech</p>
+                            <p>momchil.stanchev@frontierhub.tech</p>
                             <p>stanislav.milkov@frontierhub.tech</p>
                         </div>
                     </div>
@@ -321,7 +329,10 @@
                         </a>
                     </div>
                 </div>
-                <form class="contact-form" data-aos="fade-left" novalidate>
+                <form class="contact-form" data-aos="fade-left" novalidate action="https://formsubmit.co/info@frontierhub.tech" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="New message from FrontierHub website">
+                    <input type="hidden" name="_template" value="table">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required aria-required="true">
@@ -388,6 +399,6 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=20260628"></script>
 </body>
 </html>
