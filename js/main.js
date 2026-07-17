@@ -262,6 +262,25 @@
     handleHeroParallax();
 
     // ============================================
+    // Hero Background Video (respect reduced motion)
+    // ============================================
+
+    const heroVideo = document.querySelector('.hero-video');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function syncHeroVideoPlayback() {
+        if (!heroVideo) return;
+        if (reducedMotionQuery.matches) {
+            heroVideo.pause();
+        } else {
+            heroVideo.play().catch(() => {});
+        }
+    }
+
+    reducedMotionQuery.addEventListener('change', syncHeroVideoPlayback);
+    syncHeroVideoPlayback();
+
+    // ============================================
     // Active Navigation Link Highlighting
     // ============================================
 
